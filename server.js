@@ -8,7 +8,7 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(express.static("public"));
 
-mongoose.connect('mongodb://localhost/noteAppp', {useNewUrlParser: true});
+mongoose.connect('mongodb://localhost/tinyImprovements', {useNewUrlParser: true});
 
 require('./routes/api-routes')(app);
 require('./routes/html-routes')(app);
