@@ -14,11 +14,11 @@ const KudoSchema = new Schema({
     },
     sender: {
         type: Schema.Types.ObjectId,
-        rel: "User"
+        ref: "User"
     },
     recipient: {
         type: Schema.Types.ObjectId,
-        rel: "User"
+        ref: "User"
     }
 })
 

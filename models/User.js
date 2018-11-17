@@ -14,7 +14,7 @@ const UserSchema = new Schema ({
     },
     kudos: [{
         type: Schema.Types.ObjectId,
-        rel: 'Kudo'
+        ref: 'Kudo'
     }]
 })
 
