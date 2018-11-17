@@ -20,31 +20,35 @@
 </head>
 
 <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="#">Tiny Improvements</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon"></span>
-                </button>
-              
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                  <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                      <a class="nav-link" href="#">See All Kudos <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#">See My Kudos</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#">Post a New Kudo</a>
-                    </li>
-                  </ul>
-                  <form id="loginForm" class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="text" placeholder="username" aria-label="username">
-                    <input class="form-control mr-sm-2" type="password" placeholder="password" aria-lable="password">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Log In</button>
-                  </form>
-                </div>
-              </nav>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a id="brand" class="navbar-brand" href="#">Tiny Improvements</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li id="SeeAllKudosButton" class="nav-item active">
+                    <a class="nav-link" href="#">See All Kudos <span class="sr-only">(current)</span></a>
+                </li>
+                <li id="SeeMyKudosButton" class="nav-item hide">
+                    <a class="nav-link" href="#">See My Kudos</a>
+                </li>
+                <li id="PostANewKudoButton" class="nav-item hide">
+                    <a data-toggle="modal" data-target="#newKudoModal" class="nav-link" href="#">Post a New Kudo</a>
+                </li>
+            </ul>
+            <form id="loginForm" class="form-inline my-2 my-lg-0">
+                <input id="usernameInput" class="form-control mr-sm-2" type="text" placeholder="username" aria-label="username">
+                <input id="passwordInput" class="form-control mr-sm-2" type="password" placeholder="password"
+                    aria-lable="password">
+                <button id="loginButton" class="btn btn-outline-success my-2 my-sm-0" type="submit">Log In</button>
+                <button id="registerButton" class="btn btn-outline-success my-2 my-sm-0" type="submit">Register</button>
+                <button id="logoutButton" class="btn btn-outline-danger my-2 my-sm-0 hide" type="submit">Log Out</button>
+            </form>
+        </div>
+    </nav>
 
     <div class="container">
         <div class="jumbotron header">
@@ -54,8 +58,43 @@
     </div>
 
     <div class="container">
-        <div id="target">
+        <div class="row" id="target">
 
+        </div>
+    </div>
+    <div class="container">
+        <div class="modal fade" id="newKudoModal" tabindex="-1" role="dialog" aria-labelledby="newKudoModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="newKudoModalLabel">New Kudo</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">To:</label>
+                                <select class="form-control" id="recipient-name">
+
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="message-title" class="col-form-label">Title:</label>
+                                <input type="text" class="form-control" id="message-title" />
+                                <label for="message-body" class="col-form-label">Message:</label>
+                                <textarea class="form-control" id="message-body"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button id="send-kudo" data-dismiss="modal" type="button" class="btn btn-primary">Send Kudo</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

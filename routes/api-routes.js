@@ -7,7 +7,7 @@ module.exports = function (app) {
         db.User.find({})
             .populate("kudos")
             .then(function (data) {
-                console.log(data);
+                // console.log(data);
                 res.json(data);
             }).catch(function (error) {
                 res.json({ error: error });
@@ -64,7 +64,7 @@ module.exports = function (app) {
         db.Kudo.create(req.body)
             .then(function (data) {
                 console.log(data);
-                res.json({ success: true });
+                res.json(data);
             }).catch(function (error) {
                 res.json({ error: error });
             });
@@ -91,6 +91,19 @@ module.exports = function (app) {
             res.json(data);
         }).catch(function(error){
             res.json({error:error});
+        });
+    });
+
+    //GET KUDOS SENT TO A SPECIFIC PERSON
+    app.get('/api/user/kudo/:id', function(req, res){
+        db.Kudo.find({recipient: req.params.id})
+        .populate('sender')
+        .populate('recipient')
+        .then(function(data){
+            console.log(data);
+            res.json(data);
+        }).catch(function(error){
+            res.json({error: error});
         });
     });
 

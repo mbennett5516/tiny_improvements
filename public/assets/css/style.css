@@ -5,3 +5,7 @@
 .jumbotron{
     text-align: center;
 }
+
+#loginwarning{
+    float: right;
+}
