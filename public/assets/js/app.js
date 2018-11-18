@@ -12,8 +12,9 @@ const renderKudos = function () {
         method: "GET"
     }).then(function (response) {
         if (!response.error) {
+            let card = `<div class="row">`;
             $.each(response, function (index, data) {
-                let card = `<div class="card col-4">
+                card += `<div class="card col-4">
                 <div class="card-header"><button type="button" class="close" value="${data._id}" aria-label="Delete">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -26,8 +27,10 @@ const renderKudos = function () {
                 </div>
                 </div>
                 `
-                $('#target').append(card);
+
             })
+            $('#target').append(card + `</div>`);
+
         }
         else {
             alert("Whoops! There was a problem! " + response.error);
@@ -37,7 +40,76 @@ const renderKudos = function () {
 
 const renderMyKudos = function (event) {
     event.preventDefault();
-
+    $('#target').empty();
+    $.ajax({
+        url: `/api/user/kudo/${activeUser._id}`,
+        method: "GET"
+    }).then(function (response) {
+        console.log(response);
+        if (!response.error) {
+            let KudosReceived = `<div id="accordion">
+        <div class="card">
+          <div class="card-header" id="KudosReceived">
+            <h5 class="mb-0">
+              <button class="btn btn-link" data-toggle="collapse" data-target="#KudosReceivedCollapse" aria-expanded="true" aria-controls="KudosReceivedCollapse">
+                Kudos Received
+              </button>
+            </h5>
+          </div>
+      
+          <div id="KudosReceivedCollapse" class="collapse show" aria-labelledby="KudosReceived" data-parent="#accordion">
+            <div class="row card-body">`
+            $.each(response, function (index, data) {
+                KudosReceived += `<div class="card col-4">
+                <div class="card-header"><button type="button" class="close" value="${data._id}" aria-label="Delete">
+                <span aria-hidden="true">&times;</span>
+            </button>
+                <h5 class="card-title">${data.title}</h5>
+                <h6 class="card-subtitle text-muted">To: ${data.recipient.username}</h6>
+                </div>
+                <div class="card-body">
+                <p class="card-text">${data.body}</p>
+                <div class="card-footer text-muted">From: ${data.sender.username}</div>
+                </div>
+                </div>
+                `
+            })
+            KudosReceived += `</div></div>`
+            $('#target').append(KudosReceived);
+            let KudosSent = `<div class="card">
+    <div class="card-header" id="KudosSent">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#KudosSentCollapse" aria-expanded="false" aria-controls="KudosSentCollapse">
+          Kudos Sent
+        </button>
+      </h5>
+    </div>
+    <div id="KudosSentCollapse" class="collapse" aria-labelledby="KudosSent" data-parent="#accordion">
+      <div class="row card-body">`
+            $.each(activeUser.kudos, function (index, data) {
+                KudosSent += `<div class="card col-4">
+        <div class="card-header"><button type="button" class="close" value="${data._id}" aria-label="Delete">
+        <span aria-hidden="true">&times;</span>
+    </button>
+        <h5 class="card-title">${data.title}</h5>
+        <h6 class="card-subtitle text-muted">To: ${data.recipient.username}</h6>
+        </div>
+        <div class="card-body">
+        <p class="card-text">${data.body}</p>
+        <div class="card-footer text-muted">From: ${data.sender.username}</div>
+        </div>
+        </div>
+        `
+            })
+            KudosSent += `</div>
+    </div>
+  </div>`
+            $('#target').append(KudosSent);
+        }
+        else {
+            alert("Whoops! There was a problem! " + response.error);
+        }
+    });
 }
 
 const renderUserDropdown = function () {
@@ -48,7 +120,7 @@ const renderUserDropdown = function () {
     }).then(function (response) {
         let newOption = '';
         $.each(response, function (index, data) {
-            newOption += `<option value=${data._id}>${data.username}</option>`
+            newOption += `< option value = ${data._id}> ${data.username}</option > `
         })
         $('#recipient-name').append(newOption);
     })
@@ -69,7 +141,7 @@ const newKudo = function (event) {
     }
     console.log(newKudo);
     $.ajax({
-        url: `/api/kudo`,
+        url: `/ api / kudo`,
         method: "POST",
         data: newKudo
     }).then(function (response) {
@@ -86,7 +158,7 @@ const newKudo = function (event) {
                 kudos: kudoArray
             }
             $.ajax({
-                url: `/api/user/${activeUser._id}`,
+                url: `/ api / user / ${activeUser._id} `,
                 method: "PUT",
                 data: newUser
             }).then(function (response) {
